@@ -1,5 +1,7 @@
 import discord
 import os
+from dotenv import load_dotenv
+
 #https://discord.com/api/oauth2/authorize?&client_id=795213505162248202&scope=bot&permissions=8
 class MyClient(discord.Client):
   async def on_ready(self):
@@ -22,6 +24,8 @@ class MyClient(discord.Client):
 
   async def on_message_edit(self,before,after):
     print("Changed message " + before.content + " to " + after.content)
+
+load_dotenv(".env")
 
 myToken = os.environ.get("DISCORD_TOKEN")
 myclient=MyClient()
