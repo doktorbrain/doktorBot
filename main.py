@@ -24,7 +24,7 @@ class MyClient(discord.Client):
       bid_param = -3
       if bid.lower() == "black":
         bid_param = -1
-      if bid.lower() == "red":
+      elif bid.lower() == "red":
         bid_param = -2
       else:
         try:
