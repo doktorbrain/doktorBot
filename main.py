@@ -1,5 +1,6 @@
 import discord
-#https://discord.com/api/oauth2/authorize?&client_id=795213505162248202&scope=bot
+import os
+#https://discord.com/api/oauth2/authorize?&client_id=795213505162248202&scope=bot&permissions=8
 class MyClient(discord.Client):
   async def on_ready(self):
     print("Connected!")
@@ -10,7 +11,18 @@ class MyClient(discord.Client):
 
     if message.content.startswith("Hi Bot"):
       await message.channel.send("Hi. Wie geht's?")
+      # await message.delete(delay=3)
+    elif message.content.startswith("$help"):
+      await message.channel.send("Was ich weiß: $help, spiel")
+    elif message.content.startswith("spiel"):
+      await message.channel.send("ich überlege mir noch eins...")
 
+  async def on_message_delete(self,message):
+    print("deleted message: "+ message.content)
 
+  async def on_message_edit(self,before,after):
+    print("Changed message " + before.content + " to " + after.content)
+
+myToken = os.environ.get("DISCORD_TOKEN")
 myclient=MyClient()
-myclient.run("Nzk1MjEzNTA1MTYyMjQ4MjAy.X_GGSQ.maD2qOKso8yHbByp76Dj2teusVM")
+myclient.run(myToken)
