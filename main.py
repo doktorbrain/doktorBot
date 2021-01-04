@@ -15,13 +15,13 @@ class MyClient(discord.Client):
             return
 
         if message.content.startswith("Hi Bot"):
-            await message.channel.send("Hi. Wie geht's?")
+            await message.channel.send("Hi. Wie geht's? Ich kann Dir mit $help sagen, was ich kann.")
             # await message.delete(delay=3)
         elif message.content.startswith("$help"):
-            await message.channel.send("Was ich weiß: $help, spiel")
-        elif message.content.startswith("spiel"):
+            await message.channel.send("Was ich kann: $help, $spiel")
+        elif message.content.startswith("$spiel"):
             await message.channel.send(
-                "$roulette [BID] \n [BID]->red,black,number")
+                "$roulette [BID] \n [BID] -> red or black or number")
         elif message.content.startswith("$roulette"):
             bid = message.content.split(' ')[1]
             bid_param = -3
@@ -46,10 +46,14 @@ class MyClient(discord.Client):
             else:
                 won = result == bid_param
             if won:
-                await message.channel.send("$$$ Gewonnen! $$$")
+                await message.channel.send("$$$ Gewonnen! $$$ | Zahl: " + str(result))
             else:
-                await message.channel.send("Leider verloren :-( - " +
-                                           str(result))
+                await message.channel.send("Leider verloren :-( die Zahl war: " + str(result))
+        elif message.content.startswith("$rm*"):
+          await message.channel.send("removing messages...")
+          await message.delete()
+          nachrichten = await message.channel.history(limit=200).flatten()
+          print(nachrichten[0])
 
     async def on_message_delete(self, message):
         print("deleted message: " + message.content)
