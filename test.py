@@ -34,3 +34,9 @@ def import_excel_to_dataframe(file_path):
             filtered_df = filtered_df.query(filter_input)
         
         return filtered_df
+    
+#q: schreibe eine main funktion, die die funktion import_excel_to_dataframe mit dem file_path "data.xlsx" aufruft und das ergebnis in einer variable speichert. gebe die variable aus.
+def main():
+    result = import_excel_to_dataframe("data.xlsx")
+    print(result)
+    
